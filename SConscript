@@ -1,12 +1,16 @@
 import os
 Import('*')
 
+#bin_list = [("param", "main_param.cpp")]
 bin_list = []
 
 lib = "util"
 # these modules will compiled in to library
 lib_modules = """
               logger.cpp 
+              record.cpp
+              recordreader.cpp
+              paramTemplate.cpp
               """.split()
 
 extra_include_dir = [

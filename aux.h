@@ -1,7 +1,7 @@
 /*
  *
  *  Created on: Nov 13, 2014
- *      Author: rice
+ *      Author: heconghui@gmail.com
  */
 
 #ifndef STRUTIL_H_

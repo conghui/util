@@ -2,7 +2,7 @@
  * log.cpp
  *
  *  Created on: Oct 19, 2014
- *      Author: Conghui He
+ *      Author: heconghui@gmail.com
  */
 
 #include <boost/log/core.hpp>
