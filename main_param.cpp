@@ -7,13 +7,15 @@
 
 #include "logger.h"
 #include "paramTemplate.h"
+#include "cmdParser.h"
 
-int main() {
+int main(int argc, char **argv) {
   DEBUG() << "HELLO";
   INFO() << "INFO";
 
+  CMDParser cmdParser(argc, argv);
   ParamTemplate job;
-  job.read("param.cfg");
+  job.read(cmdParser.getParfilePath());
   INFO() << job.getStringRecord();
   INFO() << job.getIntRecord();
   INFO() << job.getFloatRecord();

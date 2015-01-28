@@ -5,8 +5,6 @@
  *      Author: heconghui@gmail.com
  */
 
-#include <boost/filesystem.hpp>
-#include <boost/assert.hpp>
 #include "paramTemplate.h"
 
 ParamTemplate::ParamTemplate() :
