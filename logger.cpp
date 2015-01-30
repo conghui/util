@@ -18,6 +18,7 @@
 #include <boost/log/expressions.hpp>
 #include <boost/log/support/date_time.hpp>
 #include <string>
+#include <sstream>
 #include "logger.h"
 
 namespace logging = boost::log;
@@ -25,23 +26,27 @@ namespace src = boost::log::sources;
 namespace sinks = boost::log::sinks;
 namespace expr = boost::log::expressions;
 
-void Logger::init(const std::string &logPrefix, int rank, severity_level_t logLevel) {
+void Logger::init(const std::string &logPrefix, severity_level_t logLevel,
+    LOG_FILENAME_TIMESTAMP timestamp, int rank)
+{
   using namespace boost::log;
 
-  boost::format fmtr("%s_%%Y%%m%%d-%%H%%M%%S_%d.log");
-  fmtr % logPrefix;
-  fmtr % rank;
+  std::string filename(logPrefix);
 
-  this->setLogger(fmtr.str(), logLevel);
-}
+  if (timestamp == ADD_TIMESTAMP) {
+    boost::format time("-%%Y%%m%%d-%%H%%M%%S");
+    filename += time.str();
+  }
 
-void Logger::init(const std::string& logPrefix, severity_level_t logLevel) {
-  using namespace boost::log;
+  if (rank >= 0) {
+    std::stringstream ss;
+    ss << rank;
+    filename += "-p" + ss.str();
+  }
 
-    boost::format fmtr("%s_%%Y%%m%%d-%%H%%M%%S.log");
-    fmtr % logPrefix;
+  filename += ".log";
 
-    this->setLogger(fmtr.str(), logLevel);
+  this->setLogger(filename, logLevel);
 }
 
 void Logger::setLogger(const std::string& filename, severity_level_t logLevel) {
@@ -76,7 +81,7 @@ void Logger::setLogger(const std::string& filename, severity_level_t logLevel) {
   logging::core::get()->set_filter(logging::trivial::severity >= logLevel);
 }
 
-Logger& Logger::getInstance() {
-  static Logger instance;
-  return instance;
+Logger& Logger::instance() {
+  static Logger ins;
+  return ins;
 }

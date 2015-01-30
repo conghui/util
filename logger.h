@@ -18,7 +18,7 @@ using boost::format;
  * macros for users, the severity level from lightest to heaviest is:
  * trace < debug < info < warning < error < fatal
  */
-#define LOG(logLevel) BOOST_LOG_SEV(Logger::getInstance().get(), logLevel)
+#define LOG(logLevel) BOOST_LOG_SEV(Logger::instance().get(), logLevel)
 #define TRACE() LOG(boost::log::trivial::trace) << "  "
 #define DEBUG() LOG(boost::log::trivial::debug)
 #define INFO()  LOG(boost::log::trivial::info)
@@ -33,18 +33,25 @@ using boost::format;
  */
 class Logger {
 public:
+  enum LOG_FILENAME_TIMESTAMP {
+    NO_TIMESTAMP, ADD_TIMESTAMP
+  };
+
+public:
   typedef boost::log::trivial::severity_level severity_level_t;
   typedef boost::log::sources::severity_logger<severity_level_t> logger_t;
 
 public:
-  static Logger &getInstance();
+  static Logger &instance();
 
   logger_t &get() {
     return mLg;
   }
 
-  void init(const std::string &logPrefix, int rank, severity_level_t logLevel);
-  void init(const std::string &logPrefix, severity_level_t logLevel);
+  void init(const std::string &logPrefix,
+            severity_level_t logLevel = boost::log::trivial::debug,
+            LOG_FILENAME_TIMESTAMP timestamp = NO_TIMESTAMP,
+            int rank = -1);
 
 private:
   void setLogger(const std::string &filename, severity_level_t logLevel);
