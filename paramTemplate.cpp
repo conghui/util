@@ -8,8 +8,7 @@
 #include "paramTemplate.h"
 
 ParamTemplate::ParamTemplate() :
-  mStringRecord(), mIntRecord(), mFloatRecord()
-{
+  mStringRecord(), mIntRecord(), mFloatRecord() {
 
 }
 

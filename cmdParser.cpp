@@ -12,14 +12,13 @@
 #include "logger.h"
 #include "cmdParser.h"
 
-CMDParser::CMDParser(int argc, char** argv) :
-  mDesc("Allowed options"), mVarMap(), mParfile()
-{
+CMDParser::CMDParser(int argc, char **argv) :
+  mDesc("Allowed options"), mVarMap(), mParfile() {
   mDesc.add_options()
-                      ("help,h", "produce this help message")
-                      ("parfile,f", po::value<std::string>(&mParfile)->default_value("param.cfg"),
-                          "parameter file, read param.cfg if it is not set")
-                          ;
+  ("help,h", "produce this help message")
+  ("parfile,f", po::value<std::string>(&mParfile)->default_value("param.cfg"),
+   "parameter file, read param.cfg if it is not set")
+  ;
 
   po::variables_map &vm = mVarMap;
   po::store(po::parse_command_line(argc, argv, mDesc), vm);
@@ -36,6 +35,6 @@ CMDParser::CMDParser(int argc, char** argv) :
 
 }
 
-const std::string& CMDParser::getParfilePath() const {
+const std::string &CMDParser::getParfilePath() const {
   return mParfile;
 }

@@ -12,20 +12,26 @@
 #include "logger.h"
 
 class ParamTemplate: public RecordReader {
-public:
+ public:
   ParamTemplate();
 
-public: /// getters
+ public: /// getters
   /// template getters
-  std::string getStringRecord() const { return mStringRecord.value; }
-  int getIntRecord() const { return mIntRecord.value; }
-  float getFloatRecord() const { return mFloatRecord.value; }
+  std::string getStringRecord() const {
+    return mStringRecord.value;
+  }
+  int getIntRecord() const {
+    return mIntRecord.value;
+  }
+  float getFloatRecord() const {
+    return mFloatRecord.value;
+  }
 
-protected: /// virtual function
+ protected: /// virtual function
   virtual void registerRecord();
   virtual void postProcess();
 
-private:
+ private:
   /// template data members
   string_record_t mStringRecord;
   int_record_t    mIntRecord;

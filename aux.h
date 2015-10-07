@@ -33,7 +33,7 @@ std::string to_str(T v, int ndigit) {
 
 template <typename T>
 bool is_close(T a, T b, double epsilon = 1e-5) {
-    return std::fabs(a - b) < epsilon;
+  return std::fabs(a - b) < epsilon;
 }
 
 template <typename T>

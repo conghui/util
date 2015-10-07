@@ -14,11 +14,11 @@
 namespace po = boost::program_options;
 
 class CMDParser {
-public:
+ public:
   CMDParser(int argc, char **argv);
   const std::string &getParfilePath() const;
 
-private:
+ private:
   po::options_description mDesc;
   po::variables_map mVarMap;
   std::string mParfile;

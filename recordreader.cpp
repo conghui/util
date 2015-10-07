@@ -16,27 +16,25 @@
 
 namespace {
 
-class AddOptionVisitor : public boost::static_visitor<>
-{
-public:
+class AddOptionVisitor : public boost::static_visitor<> {
+ public:
   AddOptionVisitor(po::options_description &desc) : mItemDesc(desc) {}
 
   template <typename T>
   void operator()(const Record<T> *record) {
     mItemDesc.add_options()(record->name.c_str(),
-        po::value<T>()->default_value(record->value),
-        record->name.c_str());
+                            po::value<T>()->default_value(record->value),
+                            record->name.c_str());
   }
 
-private:
-    po::options_description &mItemDesc;
+ private:
+  po::options_description &mItemDesc;
 };
 
-class ReadOptionVisitor : public boost::static_visitor<>
-{
+class ReadOptionVisitor : public boost::static_visitor<> {
   typedef boost::variant<bool, short, int, long, float, double, std::string> generic_value_t;
 
-public:
+ public:
   ReadOptionVisitor(po::variables_map &map) : mVarMap(map) {}
 
   template <typename value_type>
@@ -49,26 +47,25 @@ public:
     }
   }
 
-private:
+ private:
   template <typename value_type>
   void removeQuotes(value_type &value) {
     generic_value_t variant(value);
 
-    if ( std::string* pstr = boost::get<std::string>( &variant ) ) {
+    if ( std::string *pstr = boost::get<std::string>( &variant ) ) {
       boost::erase_all(*pstr, "\"");
     }
 
     value = *boost::get<value_type>(&variant);
   }
 
-private:
+ private:
   po::variables_map &mVarMap;
 
 };
 
-class PrintVisitor : public boost::static_visitor<>
-{
-public:
+class PrintVisitor : public boost::static_visitor<> {
+ public:
   template <typename T>
   void operator()(const Record<T> *record) {
     INFO() << record->name << " = " << record->value;
@@ -77,7 +74,7 @@ public:
 
 } /// end of anonymous name space
 
-void RecordReader::read(const std::string& filename) {
+void RecordReader::read(const std::string &filename) {
   registerRecord();
 
   AddOptionVisitor addVisitor(mRecordDesc);
@@ -91,7 +88,7 @@ void RecordReader::read(const std::string& filename) {
   this->postProcess();
 }
 
-void RecordReader::stroeAndNotify(const std::string& filename) {
+void RecordReader::stroeAndNotify(const std::string &filename) {
 
   try {
     std::ifstream ifs(filename.c_str());
@@ -116,8 +113,7 @@ void RecordReader::print() const {
   std::for_each(mRecordVector.begin(), mRecordVector.end(), boost::apply_visitor(visitor));
 }
 
-RecordReader::RecordReader() : mRecordDesc("Allowed Options"), mRecordMap(), mRecordVector()
-{
+RecordReader::RecordReader() : mRecordDesc("Allowed Options"), mRecordMap(), mRecordVector() {
 
 }
 

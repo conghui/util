@@ -27,8 +27,7 @@ namespace sinks = boost::log::sinks;
 namespace expr = boost::log::expressions;
 
 void Logger::init(const std::string &logPrefix, severity_level_t logLevel,
-    LOG_FILENAME_TIMESTAMP timestamp, int rank)
-{
+                  LOG_FILENAME_TIMESTAMP timestamp, int rank) {
   using namespace boost::log;
 
   std::string filename(logPrefix);
@@ -49,7 +48,7 @@ void Logger::init(const std::string &logPrefix, severity_level_t logLevel,
   this->setLogger(filename, logLevel);
 }
 
-void Logger::setLogger(const std::string& filename, severity_level_t logLevel) {
+void Logger::setLogger(const std::string &filename, severity_level_t logLevel) {
   using namespace boost::log;
 
   boost::log::add_common_attributes();
@@ -57,31 +56,31 @@ void Logger::setLogger(const std::string& filename, severity_level_t logLevel) {
   (
     std::cout,
     keywords::format =
-    (
+      (
         expr::stream
         << "[" << std::setw(5) << std::left << logging::trivial::severity << "] "
         << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S") << ": "
         << expr::smessage
-    )
+      )
   );
 
   logging::add_file_log
   (
-      boost::log::keywords::file_name = filename,
-      keywords::format =
+    boost::log::keywords::file_name = filename,
+    keywords::format =
       (
-          expr::stream
-          << "[" << std::setw(5) << std::left << logging::trivial::severity << "] "
-          << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S") << ": "
-          << expr::smessage
+        expr::stream
+        << "[" << std::setw(5) << std::left << logging::trivial::severity << "] "
+        << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S") << ": "
+        << expr::smessage
       ),
-      boost::log::keywords::auto_flush = true
+    boost::log::keywords::auto_flush = true
   );
 
   logging::core::get()->set_filter(logging::trivial::severity >= logLevel);
 }
 
-Logger& Logger::instance() {
+Logger &Logger::instance() {
   static Logger ins;
   return ins;
 }

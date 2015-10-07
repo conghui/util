@@ -32,16 +32,16 @@ using boost::format;
  * name after its rank.
  */
 class Logger {
-public:
+ public:
   enum LOG_FILENAME_TIMESTAMP {
     NO_TIMESTAMP, ADD_TIMESTAMP
   };
 
-public:
+ public:
   typedef boost::log::trivial::severity_level severity_level_t;
   typedef boost::log::sources::severity_logger<severity_level_t> logger_t;
 
-public:
+ public:
   static Logger &instance();
 
   logger_t &get() {
@@ -53,14 +53,14 @@ public:
             LOG_FILENAME_TIMESTAMP timestamp = NO_TIMESTAMP,
             int rank = -1);
 
-private:
+ private:
   void setLogger(const std::string &filename, severity_level_t logLevel);
 
   Logger() : mLg() {}
   Logger(const Logger &);
   Logger &operator=(const Logger &);
 
-private:
+ private:
   logger_t mLg;
 };
 
