@@ -12,6 +12,7 @@
 #include <fstream>
 #include <cmath>
 #include <vector>
+#include <cassert>
 #include <iomanip>
 
 template <typename T>
