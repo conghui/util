@@ -59,7 +59,7 @@ void Logger::setLogger(const std::string &filename, severity_level_t logLevel) {
       (
         expr::stream
         << "[" << std::setw(5) << std::left << logging::trivial::severity << "] "
-        << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S") << ": "
+//        << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S") << ": "
         << expr::smessage
       )
   );
@@ -71,7 +71,7 @@ void Logger::setLogger(const std::string &filename, severity_level_t logLevel) {
       (
         expr::stream
         << "[" << std::setw(5) << std::left << logging::trivial::severity << "] "
-        << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S") << ": "
+//        << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", "%Y-%m-%d %H:%M:%S") << ": "
         << expr::smessage
       ),
     boost::log::keywords::auto_flush = true
