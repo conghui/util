@@ -58,6 +58,14 @@ void writeBin(const std::string &fn, T *data, int bytes) {
 }
 
 template <typename T>
+void readBin(const std::string &fn, T *data, int bytes) {
+  std::ifstream ifs(fn.c_str());
+  assert(ifs.good());
+  ifs.read(reinterpret_cast<char *>(data), bytes);
+  ifs.close();
+}
+
+template <typename T>
 T addSquare(T x, T y) {
   return x + y * y;
 }
