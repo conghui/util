@@ -70,9 +70,9 @@ T addSquare(T x, T y) {
   return x + y * y;
 }
 
-template <typename T>
-bool abs_less(T a, T b) {
-  return std::abs(a) < std::abs(b);
-}
+//template <typename T>
+//bool abs_less(T a, T b) {
+//  return std::abs(a) < std::abs(b);
+//}
 
 #endif /* STRUTIL_H_ */
